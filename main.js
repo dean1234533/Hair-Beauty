@@ -1,3 +1,64 @@
+// Services card slider — mobile only
+(function () {
+  const slider = document.getElementById('servicesSlider');
+  const dotsWrap = document.getElementById('servicesDots');
+  const prevBtn = document.getElementById('servicesPrev');
+  const nextBtn = document.getElementById('servicesNext');
+  if (!slider) return;
+
+  const cards = Array.from(slider.querySelectorAll('.service-card'));
+  const total = cards.length;
+  let current = 0;
+  let timer;
+  let active = false;
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    cards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'services__slider-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => { goTo(i); resetTimer(); });
+      dotsWrap.appendChild(d);
+    });
+  }
+
+  function goTo(index) {
+    current = (index + total) % total;
+    slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'smooth' });
+    dotsWrap.querySelectorAll('.services__slider-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 4000);
+  }
+
+  function enable() {
+    if (active) return;
+    active = true;
+    buildDots();
+    goTo(0);
+    resetTimer();
+  }
+
+  function disable() {
+    if (!active) return;
+    active = false;
+    clearInterval(timer);
+    slider.scrollTo({ left: 0 });
+    dotsWrap.innerHTML = '';
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+  nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+  const mq = window.matchMedia('(max-width: 768px)');
+  mq.addEventListener('change', e => e.matches ? enable() : disable());
+  if (mq.matches) enable();
+})();
+
 // Nav scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -114,31 +175,30 @@ if (statsEl) statsObserver.observe(statsEl);
   init();
 })();
 
-// Testimonial slider dots (mobile only)
-const grid = document.querySelector('.testimonials__grid');
-const dots = document.querySelectorAll('.testimonials__dot');
+// Testimonial slider dots — mobile only
+(function () {
+  const grid = document.querySelector('.testimonials__grid');
+  const dots = Array.from(document.querySelectorAll('.testimonials__dot'));
+  if (!grid || !dots.length) return;
 
-if (grid && dots.length) {
-  const updateDots = () => {
-    const index = Math.round(grid.scrollLeft / grid.offsetWidth * (dots.length / (dots.length - 1 + 1)));
-    const cards = grid.querySelectorAll('.testimonial-card');
-    let active = 0;
-    cards.forEach((card, i) => {
-      const cardLeft = card.offsetLeft - grid.offsetLeft;
-      if (Math.abs(grid.scrollLeft - cardLeft) < card.offsetWidth / 2) active = i;
-    });
-    dots.forEach((d, i) => d.classList.toggle('active', i === active));
-  };
+  let current = 0;
 
-  grid.addEventListener('scroll', updateDots, { passive: true });
+  function goTo(index) {
+    current = index;
+    grid.scrollTo({ left: current * grid.offsetWidth, behavior: 'smooth' });
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      const cards = grid.querySelectorAll('.testimonial-card');
-      if (cards[i]) grid.scrollTo({ left: cards[i].offsetLeft - grid.offsetLeft, behavior: 'smooth' });
-    });
-  });
-}
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  grid.addEventListener('scroll', () => {
+    const index = Math.round(grid.scrollLeft / grid.offsetWidth);
+    if (index !== current) {
+      current = index;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+  }, { passive: true });
+})();
 
 // Form submit (demo — replace with real endpoint)
 document.getElementById('contactForm').addEventListener('submit', (e) => {
