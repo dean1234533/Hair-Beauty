@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Da Cuts – Hair & Beauty | East London</title>
+  <meta name="description" content="East London's premier hair salon. Award-winning stylists offering cuts, colour, keratin treatments, bridal packages and more in Stratford, London E15." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">
+        <span class="nav__logo-serif">Da <em>Cuts</em></span>
+        <span class="nav__logo-sub">Hair &amp; Beauty</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#services" class="nav__link">Services</a></li>
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#testimonials" class="nav__link">Reviews</a></li>
+        <li><a href="#gallery" class="nav__link">Gallery</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn--gold nav__cta">Book Now ↗</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <nav class="mobile-menu__nav">
+      <a href="#services" class="mobile-menu__link">Services</a>
+      <a href="#about" class="mobile-menu__link">About</a>
+      <a href="#testimonials" class="mobile-menu__link">Reviews</a>
+      <a href="#gallery" class="mobile-menu__link">Gallery</a>
+      <a href="#contact" class="mobile-menu__link">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn--gold mobile-menu__cta">Book Appointment</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+
+      <!-- Collage of stacked images -->
+      <div class="hero__collage">
+        <div class="hero__col-img hero__col-img--a"></div>
+        <div class="hero__col-img hero__col-img--b"></div>
+        <div class="hero__col-img hero__col-img--c"></div>
+        <div class="hero__col-tag">
+          <span>Est. 2009</span>
+          <span>·</span>
+          <span>Stratford, London E15</span>
+        </div>
+        <div class="hero__col-badge">
+          <span class="hero__col-badge-star">★</span>
+          <span class="hero__col-badge-score">4.9</span>
+          <span class="hero__col-badge-label">Google Rating</span>
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="hero__text">
+        <p class="hero__eyebrow">East London's Finest</p>
+        <h1 class="hero__headline">
+          Hair that<br />makes you<br /><em>feel like</em><br />yourself again.
+        </h1>
+        <p class="hero__sub">
+          Precision cuts, bold colour, and expert treatments — all under one roof in Stratford.
+        </p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--gold">Book Appointment ↗</a>
+          <a href="#services" class="btn btn--ghost">Our Services</a>
+        </div>
+        <div class="hero__scroll-hint">
+          <span></span>
+          <p>Scroll to explore</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker__track">
+      <span>Cuts &amp; Styling</span>
+      <span class="ticker__dot">✦</span>
+      <span>Colour &amp; Highlights</span>
+      <span class="ticker__dot">✦</span>
+      <span>Keratin Treatments</span>
+      <span class="ticker__dot">✦</span>
+      <span>Blow-Dry</span>
+      <span class="ticker__dot">✦</span>
+      <span>Bridal</span>
+      <span class="ticker__dot">✦</span>
+      <span>Eyebrow Threading</span>
+      <span class="ticker__dot">✦</span>
+      <span>Da Cuts</span>
+      <span class="ticker__dot">✦</span>
+      <span>Cuts &amp; Styling</span>
+      <span class="ticker__dot">✦</span>
+      <span>Colour &amp; Highlights</span>
+      <span class="ticker__dot">✦</span>
+      <span>Keratin Treatments</span>
+      <span class="ticker__dot">✦</span>
+      <span>Blow-Dry</span>
+      <span class="ticker__dot">✦</span>
+      <span>Bridal</span>
+      <span class="ticker__dot">✦</span>
+      <span>Eyebrow Threading</span>
+      <span class="ticker__dot">✦</span>
+      <span>Da Cuts</span>
+      <span class="ticker__dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services__header">
+        <div>
+          <p class="label">What We Offer</p>
+          <h2 class="services__title">Our Services</h2>
+        </div>
+        <span class="section-number">02</span>
+      </div>
+      <div class="services__list">
+        <div class="service-item">
+          <div class="service-item__left">
+            <h3>Cuts &amp; Styling</h3>
+            <p>Precision cuts tailored to your face shape and lifestyle</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £25</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item__left">
+            <h3>Colour &amp; Highlights</h3>
+            <p>Balayage, ombré, full colour and creative highlights</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £75</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item__left">
+            <h3>Keratin Treatments</h3>
+            <p>Smooth, frizz-free results that last up to six months</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £100</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+        <div class="service-item service-item--mobile-hidden">
+          <div class="service-item__left">
+            <h3>Blow Dry &amp; Finish</h3>
+            <p>Salon-quality blowout for every occasion</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £35</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+        <div class="service-item service-item--mobile-hidden">
+          <div class="service-item__left">
+            <h3>Bridal Packages</h3>
+            <p>Bespoke hair and beauty packages for your perfect day</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £200</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+        <div class="service-item service-item--mobile-hidden">
+          <div class="service-item__left">
+            <h3>Eyebrow Threading</h3>
+            <p>Defined, clean brows using traditional threading techniques</p>
+          </div>
+          <div class="service-item__right">
+            <span class="service-item__price">From £10</span>
+            <a href="#contact" class="service-item__link">Book →</a>
+          </div>
+        </div>
+      </div>
+      <p class="services__note">Full price list available at the salon — all consultations are free.</p>
+      <div class="services__footer">
+        <a href="services.html" class="btn btn--ghost services__view-all">View All Services →</a>
+        <a href="#contact" class="btn btn--gold">Book a Service ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item">
+          <span class="stats__number" data-target="15">0</span>
+          <span class="stats__unit">+</span>
+          <p class="stats__label">Years in East London</p>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item">
+          <span class="stats__number" data-target="4.9" data-decimal>0</span>
+          <span class="stats__unit">★</span>
+          <p class="stats__label">Average Google Rating</p>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item">
+          <span class="stats__number" data-target="2100">0</span>
+          <span class="stats__unit">+</span>
+          <p class="stats__label">Happy Clients</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO FEATURE -->
+  <section class="photo-feature">
+    <div class="photo-feature__image">
+      <div class="photo-feature__badge">
+        <span class="photo-feature__badge-number">15</span>
+        <span class="photo-feature__badge-text">Years of Expertise</span>
+      </div>
+    </div>
+    <div class="photo-feature__content">
+      <p class="label">Our Philosophy</p>
+      <h2>Craft &amp; Care at<br /><em>Every Chair</em></h2>
+      <p class="photo-feature__body">
+        Founded in 2009 on Stratford High Street, Da Cuts Salon was built on one belief: everyone deserves to leave feeling genuinely transformed. For over fifteen years we have been East London's trusted destination for hair and beauty.
+      </p>
+      <p class="photo-feature__body">
+        Our certified stylists bring international training to your local high street — whether you want a precision cut, bold colour, or a relaxing treatment, we take the time to understand exactly what you need.
+      </p>
+      <ul class="photo-feature__perks">
+        <li>✦ Wella &amp; Schwarzkopf Certified</li>
+        <li>✦ Award-winning stylists</li>
+        <li>✦ Free colour consultations</li>
+        <li>✦ No hidden charges, ever</li>
+      </ul>
+      <a href="#contact" class="btn btn--gold">Book a Consultation ↗</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials__header">
+        <div>
+          <p class="label">What Clients Say</p>
+          <h2>Real Results,<br /><em>Real People</em></h2>
+          <div class="testimonials__rating">
+            <span class="stars">★★★★★</span>
+            <span class="testimonials__rating-text">4.9 · 864 reviews</span>
+          </div>
+        </div>
+        <span class="section-number">04</span>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial-card">
+          <p class="testimonial-card__stars">★★★★★</p>
+          <blockquote>"Da Cuts completely transformed my hair. I walked in with flat, damaged ends and left with the most gorgeous balayage I've ever had in London."</blockquote>
+          <cite>— Sarah M.</cite>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__stars">★★★★★</p>
+          <blockquote>"I've been coming here for three years and the consistency is unreal. Every single cut is perfect. The team genuinely listens to what you want."</blockquote>
+          <cite>— James K.</cite>
+        </div>
+        <div class="testimonial-card testimonial-card--featured">
+          <p class="testimonial-card__stars">★★★★★</p>
+          <blockquote>"Best keratin treatment I've ever had, hands down. My hair is smoother than it's been in years. Worth every penny and the team was amazing throughout."</blockquote>
+          <cite>— Priya T.</cite>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__stars">★★★★★</p>
+          <blockquote>"Did my bridal hair here and I cannot thank them enough. Every single person in my party felt beautiful. Professional, warm, and incredibly talented."</blockquote>
+          <cite>— Amara O.</cite>
+        </div>
+      </div>
+      <div class="testimonials__dots" id="testimonialDots" aria-hidden="true">
+        <button class="testimonials__dot active"></button>
+        <button class="testimonials__dot"></button>
+        <button class="testimonials__dot"></button>
+        <button class="testimonials__dot"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__grid" id="gallerySlider">
+      <div class="gallery__cell gallery__cell--1">
+        <div class="gallery__overlay"><span>Colour</span></div>
+      </div>
+      <div class="gallery__cell gallery__cell--2">
+        <div class="gallery__overlay"><span>Styling</span></div>
+      </div>
+      <div class="gallery__cell gallery__cell--3">
+        <div class="gallery__overlay"><span>Keratin</span></div>
+      </div>
+      <div class="gallery__cell gallery__cell--4">
+        <div class="gallery__overlay"><span>Bridal</span></div>
+      </div>
+      <div class="gallery__cell gallery__cell--5">
+        <div class="gallery__overlay"><span>Cuts</span></div>
+      </div>
+      <div class="gallery__cell gallery__cell--6">
+        <div class="gallery__overlay"><span>Finish</span></div>
+      </div>
+    </div>
+    <div class="gallery__dots" id="galleryDots" aria-hidden="true"></div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__left">
+          <p class="label">Get in Touch</p>
+          <h2 class="contact__headline">Ready for Your<br /><em>Transformation?</em></h2>
+          <p class="contact__body">Send us an enquiry and we will be back in touch within a few hours to confirm your appointment. Or just call — we love to chat.</p>
+          <div class="contact__details">
+            <div class="contact__detail">
+              <span class="contact__icon">📍</span>
+              <div>
+                <p class="contact__detail-label">Address</p>
+                <p>Stratford, London E15</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <span class="contact__icon">📞</span>
+              <div>
+                <p class="contact__detail-label">Phone</p>
+                <p>07757 869547</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <span class="contact__icon">✉</span>
+              <div>
+                <p class="contact__detail-label">Email</p>
+                <p>hello@dacuts.co.uk</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <span class="contact__icon">🕐</span>
+              <div>
+                <p class="contact__detail-label">Hours</p>
+                <p>Mon–Fri: 9am – 8pm</p>
+                <p>Sat: 8am – 7pm</p>
+                <p>Sun: 10am – 5pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact__right">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="07xxx xxxxxx" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="service">Service Interested In</label>
+              <select id="service" name="service">
+                <option value="">Select a service…</option>
+                <option>Cuts &amp; Styling</option>
+                <option>Colour &amp; Highlights</option>
+                <option>Keratin Treatment</option>
+                <option>Blow Dry &amp; Finish</option>
+                <option>Bridal Package</option>
+                <option>Eyebrow Threading</option>
+                <option>Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message (optional)</label>
+              <textarea id="message" name="message" rows="3" placeholder="Any additional details…"></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold btn--full">Send Enquiry ↗</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">Da <em>Cuts</em></span>
+          <p>East London's premier hair &amp; beauty destination since 2009.</p>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Navigate</p>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Services</p>
+          <a href="#contact">Cuts &amp; Styling</a>
+          <a href="#contact">Colour &amp; Highlights</a>
+          <a href="#contact">Keratin Treatments</a>
+          <a href="#contact">Bridal Packages</a>
+        </div>
+        <div class="footer__social">
+          <p class="footer__links-heading">Follow Us</p>
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Google</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Da Cuts Hair &amp; Beauty. All rights reserved.</p>
+        <p>Stratford, London E15</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

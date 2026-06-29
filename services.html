@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – Da Cuts Hair & Beauty | East London</title>
+  <meta name="description" content="Full list of services at Da Cuts — cuts, colour, keratin, bridal, blow-dry and more in Stratford, London E15." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── PAGE-SPECIFIC OVERRIDES ──────────────────────── */
+    .sp-hero {
+      padding: 160px 40px 80px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
+    .sp-hero__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .sp-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(52px, 8vw, 100px);
+      font-weight: 300;
+      line-height: 1;
+    }
+    .sp-hero h1 em { font-style: italic; color: var(--gold); }
+    .sp-hero__meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 320px;
+      padding-bottom: 8px;
+    }
+
+    .sp-category {
+      padding: 72px 0 0;
+    }
+    .sp-category:last-of-type { padding-bottom: 100px; }
+
+    .sp-category__heading {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 4px;
+    }
+    .sp-category__heading h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+    }
+    .sp-category__line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sp-category__desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .sp-items {
+      border-top: 1px solid var(--border);
+    }
+    .sp-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 20px;
+      transition: padding-left 0.3s var(--ease);
+    }
+    .sp-item:hover { padding-left: 14px; }
+    .sp-item:hover .sp-item__name { color: var(--gold); }
+
+    .sp-item__name {
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .sp-item__note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .sp-item__right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+    .sp-item__price {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .sp-item__book {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .sp-item:hover .sp-item__book { color: var(--gold); }
+
+    .sp-cta-bar {
+      background: var(--dark-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .sp-cta-bar p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .sp-cta-bar__btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .sp-hero { padding: 130px 24px 60px; }
+      .sp-category { padding: 52px 0 0; }
+      .sp-item { flex-direction: column; align-items: flex-start; }
+      .sp-item__right { margin-top: 6px; }
+      .sp-cta-bar { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__back">← Back</a>
+      <a href="index.html#hero" class="nav__logo">
+        <span class="nav__logo-serif">Da <em>Cuts</em></span>
+        <span class="nav__logo-sub">Hair &amp; Beauty</span>
+      </a>
+      <a href="index.html#contact" class="btn btn--gold" style="font-size:12px;padding:10px 20px;">Book Now</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="sp-hero">
+    <div class="sp-hero__inner">
+      <div>
+        <p class="label">What We Offer</p>
+        <h1>Our <em>Services</em></h1>
+      </div>
+      <p class="sp-hero__meta">Every service includes a free consultation. All prices are a guide — final quotes given at the salon. No hidden charges, ever.</p>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <main class="container">
+
+    <!-- CUTS & STYLING -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Cuts &amp; Styling</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Precision cuts and expert styling tailored to your face shape, hair texture, and lifestyle.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Ladies Cut &amp; Finish</p>
+            <p class="sp-item__note">Wash, cut and blow-dry included</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £45</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Men's Cut &amp; Finish</p>
+            <p class="sp-item__note">Scissor or clipper cut with styling</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £25</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Children's Cut</p>
+            <p class="sp-item__note">Under 12 years</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £20</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Restyle</p>
+            <p class="sp-item__note">Significant length or shape change — consultation required</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £65</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOUR & HIGHLIGHTS -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Colour &amp; Highlights</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Bold or natural — from full head colour to sun-kissed balayage, all using Schwarzkopf and Wella professional colour.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Full Head Colour</p>
+            <p class="sp-item__note">Roots to ends, includes toner and finish</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £75</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Root Retouch</p>
+            <p class="sp-item__note">Up to 2 inches of re-growth</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £55</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Full Head Highlights</p>
+            <p class="sp-item__note">Foil highlights throughout</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £95</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Half Head Highlights</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £75</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Balayage / Ombré</p>
+            <p class="sp-item__note">Freehand painted technique for a natural sun-kissed result</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £110</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Toner / Gloss</p>
+            <p class="sp-item__note">Adds shine and neutralises unwanted tones</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £25</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KERATIN TREATMENTS -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Keratin Treatments</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Say goodbye to frizz. Our keratin treatments deliver smooth, manageable hair that lasts months.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Express Keratin</p>
+            <p class="sp-item__note">Results last up to 6 weeks — great for a special occasion</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £100</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Brazilian Keratin</p>
+            <p class="sp-item__note">Results last 3–5 months</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £180</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Nano Keratin</p>
+            <p class="sp-item__note">Longest-lasting formula — up to 6 months</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £250</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOW DRY & FINISH -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Blow Dry &amp; Finish</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Salon-quality blowouts for every occasion — from everyday sleek to voluminous curls.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Blow Dry</p>
+            <p class="sp-item__note">Wash and blow-dry to a smooth finish</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £35</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Curls &amp; Waves</p>
+            <p class="sp-item__note">Tong-set curls or beachy waves</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £45</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Hair Up</p>
+            <p class="sp-item__note">Bridal-adjacent updo or occasion style</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £55</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRIDAL -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Bridal Packages</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Your day, your way. Bespoke packages for brides, bridal parties, and every celebration in between.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Bridal Hair</p>
+            <p class="sp-item__note">Trial + wedding day styling included</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £200</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Bridal Party Package</p>
+            <p class="sp-item__note">Bride + up to 4 guests, priced per person</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">POA</span>
+            <a href="index.html#contact" class="sp-item__book">Enquire →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Pre-Wedding Colour</p>
+            <p class="sp-item__note">Colour, gloss and finish ahead of your big day</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £120</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EYEBROW THREADING -->
+    <section class="sp-category">
+      <div class="sp-category__heading">
+        <h2>Eyebrow Threading</h2>
+        <div class="sp-category__line"></div>
+      </div>
+      <p class="sp-category__desc">Defined, precise brows using traditional threading techniques for a clean, lasting finish.</p>
+      <div class="sp-items">
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Eyebrow Thread</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £10</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Eyebrow Thread &amp; Tint</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £18</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Upper Lip Thread</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £6</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div>
+            <p class="sp-item__name">Full Face Thread</p>
+          </div>
+          <div class="sp-item__right">
+            <span class="sp-item__price">From £25</span>
+            <a href="index.html#contact" class="sp-item__book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CTA BAR -->
+  <div class="sp-cta-bar">
+    <p>All consultations are free — no pressure, no surprises.</p>
+    <div class="sp-cta-bar__btns">
+      <a href="index.html#contact" class="btn btn--gold">Book an Appointment ↗</a>
+      <a href="index.html" class="btn btn--ghost">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">Da <em>Cuts</em></span>
+          <p>East London's premier hair &amp; beauty destination since 2009.</p>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Navigate</p>
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="index.html#testimonials">Reviews</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Services</p>
+          <a href="services.html#cuts">Cuts &amp; Styling</a>
+          <a href="services.html#colour">Colour &amp; Highlights</a>
+          <a href="services.html#keratin">Keratin Treatments</a>
+          <a href="services.html#bridal">Bridal Packages</a>
+        </div>
+        <div class="footer__social">
+          <p class="footer__links-heading">Follow Us</p>
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Google</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Da Cuts Hair &amp; Beauty. All rights reserved.</p>
+        <p>Stratford, London E15</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
