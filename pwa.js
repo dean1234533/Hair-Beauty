@@ -1,60 +1,64 @@
-// Register service worker
+// Register service worker (relative path works on GitHub Pages subdirectories)
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
 // ─── INSTALL BANNER ──────────────────────────────────────────
-const banner = document.getElementById('pwaBanner');
-const closeBtn = document.getElementById('pwaBannerClose');
-const installBtn = document.getElementById('pwaInstallBtn');
-const instructions = document.getElementById('pwaBannerInstructions');
+(function () {
+  const banner       = document.getElementById('pwaBanner');
+  if (!banner) return;
 
-if (!banner) return; // not on a page with the banner
+  const closeBtn     = document.getElementById('pwaBannerClose');
+  const installBtn   = document.getElementById('pwaInstallBtn');
+  const instructions = document.getElementById('pwaBannerInstructions');
 
-// Don't show if already installed or dismissed this session
-const dismissed = sessionStorage.getItem('pwaDismissed');
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  // Don't show if already installed or dismissed this session
+  const dismissed    = sessionStorage.getItem('pwaDismissed');
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 
-let deferredPrompt = null;
+  if (isStandalone) return; // already running as installed app
 
-// Chrome/Android: catch the install prompt
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!dismissed && !isStandalone) {
-    installBtn.style.display = 'inline-flex';
-    instructions.textContent = 'Install the app for quick booking access.';
+  let deferredPrompt = null;
+
+  // Chrome / Android — catch the native install prompt
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!dismissed) {
+      installBtn.style.display = 'inline-flex';
+      instructions.textContent = 'Install the app for quick access.';
+      showBanner();
+    }
+  });
+
+  // iOS — show manual share-sheet instructions
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (isIOS && !dismissed) {
+    instructions.textContent = 'Tap the share icon ⎎ at the bottom of your browser, then tap “Add to Home Screen”.';
     showBanner();
   }
-});
 
-// iOS: show manual instructions
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIOS && !dismissed && !isStandalone) {
-  instructions.textContent = 'Tap the share icon ⎙ at the bottom of your browser, then tap "Add to Home Screen".';
-  showBanner();
-}
+  installBtn.addEventListener('click', function () {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function (result) {
+      if (result.outcome === 'accepted') hideBanner();
+      deferredPrompt = null;
+    });
+  });
 
-installBtn.addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') hideBanner();
-  deferredPrompt = null;
-});
+  closeBtn.addEventListener('click', function () {
+    hideBanner();
+    sessionStorage.setItem('pwaDismissed', '1');
+  });
 
-closeBtn.addEventListener('click', () => {
-  hideBanner();
-  sessionStorage.setItem('pwaDismissed', '1');
-});
+  window.addEventListener('appinstalled', hideBanner);
 
-function showBanner() {
-  setTimeout(() => banner.classList.add('visible'), 1500);
-}
+  function showBanner() {
+    setTimeout(function () { banner.classList.add('visible'); }, 1500);
+  }
 
-function hideBanner() {
-  banner.classList.remove('visible');
-}
-
-// Hide banner once installed
-window.addEventListener('appinstalled', hideBanner);
+  function hideBanner() {
+    banner.classList.remove('visible');
+  }
+}());

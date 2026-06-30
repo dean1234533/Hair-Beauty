@@ -1,3 +1,8 @@
+// Pass-through fetch handler — required for PWA installability
+self.addEventListener('fetch', function (e) {
+  e.respondWith(fetch(e.request));
+});
+
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 

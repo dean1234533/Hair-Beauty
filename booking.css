@@ -469,6 +469,9 @@
 
 /* ─── RESPONSIVE ────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Prevent iOS auto-zoom on input focus */
+  input, select, textarea { font-size: 16px !important; }
+
   .booking-page { padding: 100px 24px 60px; }
   .booking-services { grid-template-columns: 1fr; }
   .time-slots { grid-template-columns: repeat(3, 1fr); }
