@@ -264,6 +264,29 @@
 .booking-row__status select[data-status="cancelled"] { color: #e05050; border-color: rgba(224,80,80,0.3); }
 .booking-row__status select[data-status="pending"] { color: var(--gold); }
 
+.booking-row__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.booking-row__delete {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 6px 8px;
+  flex-shrink: 0;
+  transition: color 0.2s, border-color 0.2s;
+  border-radius: 2px;
+}
+
+.booking-row__delete:hover {
+  color: #e05050;
+  border-color: rgba(224,80,80,0.4);
+}
+
 .booking-row__new {
   animation: newBooking 2s ease-out;
 }
@@ -525,21 +548,114 @@
 .admin-modal__error   { font-size: 13px; color: #e05050; min-height: 16px; }
 .admin-modal__success { font-size: 13px; color: #6fcf97; min-height: 16px; }
 
+.admin-modal--sm { max-width: 360px; }
+
+.delete-modal__name {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--text);
+  padding: 12px 16px;
+  background: var(--dark-3);
+  border-left: 3px solid #e05050;
+}
+
+.delete-modal__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.delete-modal__actions .btn { flex: 1; justify-content: center; }
+
+.delete-modal__confirm {
+  background: #e05050;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-modal__confirm:hover { background: #c03030; }
+
 /* ─── RESPONSIVE ────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .admin-main { padding: 24px; }
-  .admin-header { padding: 0 24px; }
+  .admin-header { padding: 0 20px; }
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
-  .booking-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; }
+  .booking-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
   .booking-row__status { grid-column: 1 / -1; }
+  .admin-tabs { padding: 0 20px; }
 }
 
 @media (max-width: 600px) {
+  /* Gate */
+  .admin-gate__box { padding: 36px 24px; }
+
+  /* Header — collapse buttons to icons only */
+  .admin-header {
+    padding: 0 16px;
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .admin-header__right { gap: 8px; }
+
+  .admin-notify-btn { padding: 8px 10px; }
+  .admin-notify-btn .btn-label { display: none; }
+  .admin-notify-btn .btn-icon  { font-size: 16px; }
+  .admin-signout .btn-label    { display: none; }
+  .admin-signout::after        { content: '→'; }
+  .admin-badge { display: none; }
+
+  /* Tabs */
+  .admin-tabs { padding: 0 16px; overflow-x: auto; white-space: nowrap; }
+  .admin-tab  { padding: 14px 16px; font-size: 12px; }
+
+  /* Main */
+  .admin-main { padding: 16px; }
+
+  /* Stats */
   .admin-stats { grid-template-columns: 1fr 1fr; }
+  .admin-stat  { padding: 20px 16px; }
+  .admin-stat__num { font-size: 32px; }
+
+  /* Filters */
+  .admin-filters { flex-direction: column; align-items: stretch; gap: 12px; }
+  .admin-filters__left { flex-wrap: wrap; }
+  .admin-filter-btn { flex: 1; text-align: center; }
   .admin-search input { width: 100%; }
-  .admin-filters { flex-direction: column; align-items: flex-start; }
-  .booking-row { grid-template-columns: 1fr; }
-  .admin-tabs { padding: 0 24px; }
+
+  /* Booking rows — full card layout */
+  .booking-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 0;
+  }
+
+  .booking-row__datetime,
+  .booking-row__contact { font-size: 13px; }
+
+  /* Hours */
+  .hours-header { flex-direction: column; gap: 12px; }
+  .hours-header .btn { width: 100%; justify-content: center; }
   .hours-row { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
-  .hours-header { flex-direction: column; }
+  .hours-times { flex-wrap: wrap; }
+  .hours-time { width: 100%; flex: 1; min-width: 100px; }
+
+  /* Modal */
+  .admin-modal { padding: 28px 20px; }
 }

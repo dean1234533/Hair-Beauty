@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, onSnapshot, doc, updateDoc, orderBy, query, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, orderBy, query, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js';
 
@@ -171,6 +171,7 @@ function renderBookings() {
             <option value="confirmed" ${b.status==='confirmed' ? 'selected':''}>Confirmed</option>
             <option value="cancelled" ${b.status==='cancelled' ? 'selected':''}>Cancelled</option>
           </select>
+          <button class="booking-row__delete" onclick="confirmDelete('${b.id}', '${esc(b.name)}', '${esc(b.service)}')" title="Delete booking">🗑</button>
         </div>
       </div>
     `;
@@ -188,6 +189,30 @@ window.updateStatus = async function(select) {
   select.dataset.status = status;
   await updateDoc(doc(db, 'bookings', id), { status });
 };
+
+// Delete booking
+window.confirmDelete = function(id, name, service) {
+  const overlay = document.getElementById('deleteModal');
+  document.getElementById('deleteModalName').textContent = `${name} — ${service}`;
+  overlay.classList.add('open');
+  document.getElementById('deleteConfirmBtn').onclick = async () => {
+    try {
+      await deleteDoc(doc(db, 'bookings', id));
+      overlay.classList.remove('open');
+    } catch (e) {
+      alert('Could not delete. Check your connection and try again.');
+    }
+  };
+};
+
+document.getElementById('deleteCancelBtn').addEventListener('click', () => {
+  document.getElementById('deleteModal').classList.remove('open');
+});
+document.getElementById('deleteModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('deleteModal')) {
+    document.getElementById('deleteModal').classList.remove('open');
+  }
+});
 
 // ─── NEW BOOKING ALERT ────────────────────────────────────────
 function triggerNewBookingAlert(booking) {

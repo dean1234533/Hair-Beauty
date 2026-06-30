@@ -43,9 +43,9 @@
         <span class="admin-badge">Admin</span>
       </div>
       <div class="admin-header__right">
-        <button class="admin-notify-btn" id="enableNotifications">🔔 Enable Notifications</button>
-        <button class="admin-notify-btn" id="changePasswordBtn">🔑 Change Password</button>
-        <button class="btn btn--ghost" id="adminLogout" style="padding:8px 16px;font-size:11px">Sign Out</button>
+        <button class="admin-notify-btn" id="enableNotifications"><span class="btn-icon">🔔</span><span class="btn-label">Enable Notifications</span></button>
+        <button class="admin-notify-btn" id="changePasswordBtn"><span class="btn-icon">🔑</span><span class="btn-label">Change Password</span></button>
+        <button class="btn btn--ghost admin-signout" id="adminLogout">Sign Out</button>
       </div>
     </header>
 
@@ -116,6 +116,20 @@
       </div>
 
     </main>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div class="admin-modal-overlay" id="deleteModal">
+    <div class="admin-modal admin-modal--sm">
+      <h2>Delete Booking?</h2>
+      <p>This will permanently remove the booking for:</p>
+      <p class="delete-modal__name" id="deleteModalName"></p>
+      <p style="color:var(--text-muted);font-size:12px">This cannot be undone.</p>
+      <div class="delete-modal__actions">
+        <button class="btn btn--ghost" id="deleteCancelBtn">Cancel</button>
+        <button class="btn delete-modal__confirm" id="deleteConfirmBtn">Delete ↗</button>
+      </div>
+    </div>
   </div>
 
   <!-- CHANGE PASSWORD MODAL -->
