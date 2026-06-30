@@ -28,6 +28,9 @@ onAuthStateChanged(auth, user => {
   if (user) {
     gate.style.display = 'none';
     dash.style.display = 'block';
+    // Explicitly show the default (bookings) panel
+    document.getElementById('tab-bookings').style.display = 'block';
+    document.getElementById('tab-hours').style.display = 'none';
     initDash();
   } else {
     gate.style.display = 'flex';
@@ -277,11 +280,17 @@ notifyBtn.addEventListener('click', async () => {
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+    // Explicitly hide all panels (don't rely on CSS alone — inline styles can override)
+    document.querySelectorAll('.admin-tab-panel').forEach(p => {
+      p.classList.remove('active');
+      p.style.display = 'none';
+    });
     tab.classList.add('active');
-    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+    const panel = document.getElementById(`tab-${tab.dataset.tab}`);
+    panel.classList.add('active');
+    panel.style.display = 'block';
 
-    // Ensure hours grid is populated whenever the hours tab is opened
+    // Ensure hours grid is always populated when the hours tab is opened
     if (tab.dataset.tab === 'hours') {
       const grid = document.getElementById('hoursGrid');
       if (!grid.innerHTML.trim()) renderHoursGrid();

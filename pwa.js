@@ -1,40 +1,42 @@
-// Register service worker (relative path works on GitHub Pages subdirectories)
+// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
 // ─── INSTALL BANNER ──────────────────────────────────────────
 (function () {
-  const banner       = document.getElementById('pwaBanner');
+  const banner = document.getElementById('pwaBanner');
   if (!banner) return;
 
   const closeBtn     = document.getElementById('pwaBannerClose');
   const installBtn   = document.getElementById('pwaInstallBtn');
   const instructions = document.getElementById('pwaBannerInstructions');
 
-  // Don't show if already installed or dismissed this session
-  const dismissed    = sessionStorage.getItem('pwaDismissed');
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  // Already running as installed PWA — never show banner
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                    || navigator.standalone === true;
+  if (isStandalone) return;
 
-  if (isStandalone) return; // already running as installed app
+  // User dismissed within the last 30 days — don't nag
+  const dismissedAt = parseInt(localStorage.getItem('pwaDismissedAt') || '0', 10);
+  const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+  if (dismissedAt && Date.now() - dismissedAt < THIRTY_DAYS) return;
 
   let deferredPrompt = null;
 
-  // Chrome / Android — catch the native install prompt
+  // Chrome / Android — native install prompt
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     deferredPrompt = e;
-    if (!dismissed) {
-      installBtn.style.display = 'inline-flex';
-      instructions.textContent = 'Install the app for quick access.';
-      showBanner();
-    }
+    installBtn.style.display = 'inline-flex';
+    instructions.textContent = 'Install the app for quick access.';
+    showBanner();
   });
 
-  // iOS — show manual share-sheet instructions
+  // iOS — show share-sheet instructions
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if (isIOS && !dismissed) {
-    instructions.textContent = 'Tap the share icon ⎎ at the bottom of your browser, then tap “Add to Home Screen”.';
+  if (isIOS) {
+    instructions.textContent = 'Tap the Share icon ⎎ at the bottom of Safari, then "Add to Home Screen".';
     showBanner();
   }
 
@@ -49,10 +51,14 @@ if ('serviceWorker' in navigator) {
 
   closeBtn.addEventListener('click', function () {
     hideBanner();
-    sessionStorage.setItem('pwaDismissed', '1');
+    localStorage.setItem('pwaDismissedAt', Date.now().toString());
   });
 
-  window.addEventListener('appinstalled', hideBanner);
+  // When the OS confirms install, hide banner and reset dismiss timer
+  window.addEventListener('appinstalled', function () {
+    hideBanner();
+    localStorage.removeItem('pwaDismissedAt');
+  });
 
   function showBanner() {
     setTimeout(function () { banner.classList.add('visible'); }, 1500);
