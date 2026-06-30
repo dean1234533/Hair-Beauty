@@ -13,6 +13,7 @@
   let active = false;
 
   function buildDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = '';
     cards.forEach((_, i) => {
       const d = document.createElement('button');
@@ -25,7 +26,7 @@
   function goTo(index) {
     current = (index + total) % total;
     slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'smooth' });
-    dotsWrap.querySelectorAll('.services__slider-dot').forEach((d, i) => {
+    if (dotsWrap) dotsWrap.querySelectorAll('.services__slider-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
     });
   }
@@ -48,11 +49,11 @@
     active = false;
     clearInterval(timer);
     slider.scrollTo({ left: 0 });
-    dotsWrap.innerHTML = '';
+    if (dotsWrap) dotsWrap.innerHTML = '';
   }
 
-  prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
-  nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
 
   const mq = window.matchMedia('(max-width: 768px)');
   mq.addEventListener('change', e => e.matches ? enable() : disable());
