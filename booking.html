@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment – Da Cuts Hair & Beauty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#C9A96E" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Da Cuts" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="booking.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-serif">Da <em>Cuts</em></span>
+        <span class="nav__logo-sub">Hair &amp; Beauty</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html#services" class="nav__link">Services</a></li>
+        <li><a href="index.html#about" class="nav__link">About</a></li>
+        <li><a href="index.html#testimonials" class="nav__link">Reviews</a></li>
+        <li><a href="index.html#gallery" class="nav__link">Gallery</a></li>
+        <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <a href="booking.html" class="btn btn--gold nav__cta">Book Now ↗</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <nav class="mobile-menu__nav">
+      <a href="index.html#services" class="mobile-menu__link">Services</a>
+      <a href="index.html#about" class="mobile-menu__link">About</a>
+      <a href="index.html#testimonials" class="mobile-menu__link">Reviews</a>
+      <a href="index.html#gallery" class="mobile-menu__link">Gallery</a>
+      <a href="index.html#contact" class="mobile-menu__link">Contact</a>
+    </nav>
+    <a href="booking.html" class="btn btn--gold mobile-menu__cta">Book Appointment</a>
+  </div>
+
+  <!-- BOOKING PAGE -->
+  <main class="booking-page">
+    <div class="booking-header">
+      <p class="label">Da Cuts Hair &amp; Beauty</p>
+      <h1 class="booking-title">Book Your <em>Appointment</em></h1>
+      <p class="booking-subtitle">Stratford, London E15 · Mon–Sun</p>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="booking-stepper" id="stepper">
+      <div class="booking-step-indicator active" data-step="1">
+        <span class="step-num">1</span>
+        <span class="step-label">Service</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="booking-step-indicator" data-step="2">
+        <span class="step-num">2</span>
+        <span class="step-label">Date</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="booking-step-indicator" data-step="3">
+        <span class="step-num">3</span>
+        <span class="step-label">Time</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="booking-step-indicator" data-step="4">
+        <span class="step-num">4</span>
+        <span class="step-label">Details</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: SERVICE -->
+    <div class="booking-panel active" id="step-1">
+      <h2 class="booking-panel__title">Choose a Service</h2>
+      <div class="booking-services">
+        <div class="booking-service-card" data-service="Cuts &amp; Styling" data-price="From £25">
+          <span class="bsc__num">01</span>
+          <h3>Cuts &amp; Styling</h3>
+          <p>Precision cuts tailored to your face shape and lifestyle</p>
+          <span class="bsc__price">From £25</span>
+        </div>
+        <div class="booking-service-card" data-service="Colour &amp; Highlights" data-price="From £75">
+          <span class="bsc__num">02</span>
+          <h3>Colour &amp; Highlights</h3>
+          <p>Balayage, ombré, full colour and creative highlights</p>
+          <span class="bsc__price">From £75</span>
+        </div>
+        <div class="booking-service-card" data-service="Keratin Treatment" data-price="From £100">
+          <span class="bsc__num">03</span>
+          <h3>Keratin Treatment</h3>
+          <p>Smooth, frizz-free results that last up to six months</p>
+          <span class="bsc__price">From £100</span>
+        </div>
+        <div class="booking-service-card" data-service="Blow Dry &amp; Finish" data-price="From £35">
+          <span class="bsc__num">04</span>
+          <h3>Blow Dry &amp; Finish</h3>
+          <p>Salon-quality blowout for every occasion</p>
+          <span class="bsc__price">From £35</span>
+        </div>
+        <div class="booking-service-card" data-service="Bridal Package" data-price="From £200">
+          <span class="bsc__num">05</span>
+          <h3>Bridal Package</h3>
+          <p>Bespoke hair and beauty packages for your perfect day</p>
+          <span class="bsc__price">From £200</span>
+        </div>
+        <div class="booking-service-card" data-service="Eyebrow Threading" data-price="From £10">
+          <span class="bsc__num">06</span>
+          <h3>Eyebrow Threading</h3>
+          <p>Defined, clean brows using traditional threading techniques</p>
+          <span class="bsc__price">From £10</span>
+        </div>
+      </div>
+      <div class="booking-nav">
+        <span></span>
+        <button class="btn btn--gold" id="step1Next" disabled>Next: Choose Date →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DATE -->
+    <div class="booking-panel" id="step-2">
+      <h2 class="booking-panel__title">Choose a Date</h2>
+      <div class="booking-calendar">
+        <div class="cal-header">
+          <button class="cal-nav" id="calPrev">←</button>
+          <span class="cal-month" id="calMonth"></span>
+          <button class="cal-nav" id="calNext">→</button>
+        </div>
+        <div class="cal-weekdays">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <div class="booking-nav">
+        <button class="btn btn--ghost" id="step2Back">← Back</button>
+        <button class="btn btn--gold" id="step2Next" disabled>Next: Choose Time →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: TIME -->
+    <div class="booking-panel" id="step-3">
+      <h2 class="booking-panel__title">Choose a Time</h2>
+      <p class="booking-panel__sub" id="selectedDateLabel"></p>
+      <div class="time-slots" id="timeSlots"></div>
+      <div class="booking-nav">
+        <button class="btn btn--ghost" id="step3Back">← Back</button>
+        <button class="btn btn--gold" id="step3Next" disabled>Next: Your Details →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: DETAILS -->
+    <div class="booking-panel" id="step-4">
+      <h2 class="booking-panel__title">Your Details</h2>
+      <div class="booking-summary-bar" id="summaryBar"></div>
+      <form class="booking-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bName">Full Name</label>
+            <input type="text" id="bName" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="bPhone">Phone Number</label>
+            <input type="tel" id="bPhone" placeholder="07xxx xxxxxx" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bEmail">Email Address</label>
+          <input type="email" id="bEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="bNotes">Notes (optional)</label>
+          <textarea id="bNotes" rows="3" placeholder="Any details we should know…"></textarea>
+        </div>
+      </form>
+      <div class="booking-nav">
+        <button class="btn btn--ghost" id="step4Back">← Back</button>
+        <button class="btn btn--gold" id="step4Submit">Confirm Booking ↗</button>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="booking-panel" id="step-confirm">
+      <div class="booking-confirm">
+        <div class="confirm-icon">✓</div>
+        <h2>Booking Confirmed</h2>
+        <p>Thank you! We'll be in touch shortly to confirm your appointment.</p>
+        <div class="confirm-details" id="confirmDetails"></div>
+        <p class="confirm-ref">Booking ref: <strong id="confirmRef"></strong></p>
+        <div class="confirm-actions">
+          <a href="index.html" class="btn btn--ghost">Back to Home</a>
+          <a href="booking.html" class="btn btn--gold">Book Again ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">Da <em>Cuts</em></span>
+          <p>East London's premier hair &amp; beauty destination since 2009.</p>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Navigate</p>
+          <a href="index.html#services">Services</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#testimonials">Reviews</a>
+          <a href="index.html#gallery">Gallery</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer__links">
+          <p class="footer__links-heading">Services</p>
+          <a href="booking.html">Cuts &amp; Styling</a>
+          <a href="booking.html">Colour &amp; Highlights</a>
+          <a href="booking.html">Keratin Treatments</a>
+          <a href="booking.html">Bridal Packages</a>
+        </div>
+        <div class="footer__social">
+          <p class="footer__links-heading">Follow Us</p>
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Google</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Da Cuts Hair &amp; Beauty. All rights reserved.</p>
+        <p>Stratford, London E15</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="booking.js"></script>
+  <!-- Nav (hamburger) -->
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuClose = document.getElementById('menuClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+  </script>
+</body>
+</html>
