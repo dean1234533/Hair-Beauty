@@ -24,6 +24,7 @@ const booking = { service: null, price: null, date: null, time: null };
 function showPanel(id) {
   document.querySelectorAll('.booking-panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function updateStepper(activeStep) {

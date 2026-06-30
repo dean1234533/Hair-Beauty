@@ -217,17 +217,81 @@ document.getElementById('deleteModal').addEventListener('click', e => {
   }
 });
 
+// ─── ALERT PREFERENCES (vibrate / beep) ──────────────────────
+(function initAlertPrefs() {
+  const vibrateChk = document.getElementById('alertVibrate');
+  const soundChk   = document.getElementById('alertSound');
+  const vibrateTrack = document.getElementById('vibrateTrack');
+  const soundTrack   = document.getElementById('soundTrack');
+
+  // Load saved prefs
+  vibrateChk.checked = localStorage.getItem('alertVibrate') === '1';
+  soundChk.checked   = localStorage.getItem('alertSound')   === '1';
+  updateTrack(vibrateTrack, vibrateChk.checked);
+  updateTrack(soundTrack,   soundChk.checked);
+
+  // Hide vibrate option on iOS (navigator.vibrate not supported)
+  if (!navigator.vibrate) {
+    document.getElementById('vibrateLabel').style.display = 'none';
+  }
+
+  vibrateChk.addEventListener('change', () => {
+    localStorage.setItem('alertVibrate', vibrateChk.checked ? '1' : '0');
+    updateTrack(vibrateTrack, vibrateChk.checked);
+  });
+
+  soundChk.addEventListener('change', () => {
+    localStorage.setItem('alertSound', soundChk.checked ? '1' : '0');
+    updateTrack(soundTrack, soundChk.checked);
+    if (soundChk.checked) playBeep(); // preview the sound
+  });
+
+  function updateTrack(track, on) {
+    track.style.background = on ? 'var(--gold)' : '';
+    track.querySelector('.hours-toggle-thumb').style.transform = on ? 'translateX(18px)' : '';
+  }
+}());
+
+function playBeep() {
+  try {
+    const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.6);
+    ctx.close();
+  } catch (e) {
+    console.warn('Beep failed:', e.message);
+  }
+}
+
 // ─── NEW BOOKING ALERT ────────────────────────────────────────
 function triggerNewBookingAlert(booking) {
-  // In-app notification
+  // Push notification
   if (Notification.permission === 'granted') {
     new Notification('New Booking — Da Cuts', {
       body: `${booking.name} · ${booking.service} · ${booking.dateKey} at ${booking.time}`,
-      icon: '/icons/icon-192.png'
+      icon: './icons/icon.svg'
     });
   }
 
-  // Highlight the new row briefly
+  // Vibrate (Android only — iOS ignores navigator.vibrate)
+  if (localStorage.getItem('alertVibrate') === '1' && navigator.vibrate) {
+    navigator.vibrate([300, 100, 300, 100, 300]);
+  }
+
+  // Beep
+  if (localStorage.getItem('alertSound') === '1') {
+    playBeep();
+  }
+
+  // Highlight the new booking row
   setTimeout(() => {
     const row = document.getElementById(`row-${booking.id}`);
     if (row) row.classList.add('booking-row__new');

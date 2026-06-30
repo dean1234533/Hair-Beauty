@@ -204,6 +204,46 @@
 
 .admin-search input:focus { border-color: var(--gold); }
 
+/* ─── ALERT PREFERENCES ─────────────────────────────────────── */
+.alert-prefs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px;
+  background: var(--dark-2);
+  border: 1px solid var(--border);
+  margin-bottom: 1px;
+  flex-wrap: wrap;
+}
+
+.alert-prefs__label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.alert-pref-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.alert-pref-item .alert-pref-chk { display: none; }
+
+.alert-pref-icon { font-size: 16px; }
+
+.alert-pref-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+/* Reuse hours-toggle-track / hours-toggle-thumb styles already defined */
+
 /* ─── BOOKINGS LIST ─────────────────────────────────────────── */
 .admin-loading {
   text-align: center;
@@ -659,6 +699,10 @@
   .hours-row { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
   .hours-times { flex-wrap: wrap; }
   .hours-time { width: 100%; flex: 1; min-width: 100px; }
+
+  /* Alert prefs */
+  .alert-prefs { gap: 14px; padding: 12px 16px; }
+  .alert-prefs__label { width: 100%; margin-right: 0; }
 
   /* Modal */
   .admin-modal { padding: 28px 20px; }

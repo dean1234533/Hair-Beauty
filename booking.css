@@ -259,7 +259,8 @@
   color: var(--gold);
 }
 
-.cal-day.selected {
+.cal-day.selected,
+.cal-day.selected.today {
   background: var(--gold);
   color: var(--black);
   font-weight: 600;

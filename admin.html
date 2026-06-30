@@ -93,6 +93,23 @@
           </div>
         </div>
 
+        <!-- ALERT PREFERENCES -->
+        <div class="alert-prefs">
+          <span class="alert-prefs__label">When a booking arrives:</span>
+          <label class="alert-pref-item" id="vibrateLabel" title="Vibrate on Android only">
+            <span class="alert-pref-icon">📳</span>
+            <span class="alert-pref-text">Vibrate</span>
+            <span class="hours-toggle-track" id="vibrateTrack"><span class="hours-toggle-thumb"></span></span>
+            <input type="checkbox" id="alertVibrate" class="alert-pref-chk" />
+          </label>
+          <label class="alert-pref-item">
+            <span class="alert-pref-icon">🔊</span>
+            <span class="alert-pref-text">Beep</span>
+            <span class="hours-toggle-track" id="soundTrack"><span class="hours-toggle-thumb"></span></span>
+            <input type="checkbox" id="alertSound" class="alert-pref-chk" />
+          </label>
+        </div>
+
         <!-- BOOKINGS LIST -->
         <div class="admin-bookings" id="adminBookings">
           <div class="admin-loading">Loading bookings…</div>
