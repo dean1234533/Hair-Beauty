@@ -44,53 +44,116 @@
       </div>
       <div class="admin-header__right">
         <button class="admin-notify-btn" id="enableNotifications">🔔 Enable Notifications</button>
+        <button class="admin-notify-btn" id="changePasswordBtn">🔑 Change Password</button>
         <button class="btn btn--ghost" id="adminLogout" style="padding:8px 16px;font-size:11px">Sign Out</button>
       </div>
     </header>
 
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="bookings">Bookings</button>
+      <button class="admin-tab" data-tab="hours">Business Hours</button>
+    </div>
+
     <main class="admin-main">
 
-      <!-- STATS ROW -->
-      <div class="admin-stats">
-        <div class="admin-stat">
-          <span class="admin-stat__num" id="statTotal">—</span>
-          <span class="admin-stat__label">Total Bookings</span>
+      <!-- ── BOOKINGS TAB ── -->
+      <div class="admin-tab-panel active" id="tab-bookings">
+
+        <!-- STATS ROW -->
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statTotal">—</span>
+            <span class="admin-stat__label">Total Bookings</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statToday">—</span>
+            <span class="admin-stat__label">Today</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statPending">—</span>
+            <span class="admin-stat__label">Pending</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat__num" id="statThisWeek">—</span>
+            <span class="admin-stat__label">This Week</span>
+          </div>
         </div>
-        <div class="admin-stat">
-          <span class="admin-stat__num" id="statToday">—</span>
-          <span class="admin-stat__label">Today</span>
+
+        <!-- FILTERS -->
+        <div class="admin-filters">
+          <div class="admin-filters__left">
+            <button class="admin-filter-btn active" data-filter="all">All</button>
+            <button class="admin-filter-btn" data-filter="pending">Pending</button>
+            <button class="admin-filter-btn" data-filter="confirmed">Confirmed</button>
+            <button class="admin-filter-btn" data-filter="cancelled">Cancelled</button>
+          </div>
+          <div class="admin-search">
+            <input type="text" id="adminSearch" placeholder="Search by name or service…" />
+          </div>
         </div>
-        <div class="admin-stat">
-          <span class="admin-stat__num" id="statPending">—</span>
-          <span class="admin-stat__label">Pending</span>
+
+        <!-- BOOKINGS LIST -->
+        <div class="admin-bookings" id="adminBookings">
+          <div class="admin-loading">Loading bookings…</div>
         </div>
-        <div class="admin-stat">
-          <span class="admin-stat__num" id="statThisWeek">—</span>
-          <span class="admin-stat__label">This Week</span>
-        </div>
+
       </div>
 
-      <!-- FILTERS -->
-      <div class="admin-filters">
-        <div class="admin-filters__left">
-          <button class="admin-filter-btn active" data-filter="all">All</button>
-          <button class="admin-filter-btn" data-filter="pending">Pending</button>
-          <button class="admin-filter-btn" data-filter="confirmed">Confirmed</button>
-          <button class="admin-filter-btn" data-filter="cancelled">Cancelled</button>
+      <!-- ── HOURS TAB ── -->
+      <div class="admin-tab-panel" id="tab-hours">
+        <div class="hours-header">
+          <div>
+            <h2 class="hours-title">Business Hours</h2>
+            <p class="hours-sub">Set when customers can book. Changes take effect immediately.</p>
+          </div>
+          <button class="btn btn--gold" id="saveHours">Save Hours ↗</button>
         </div>
-        <div class="admin-search">
-          <input type="text" id="adminSearch" placeholder="Search by name or service…" />
+        <p class="hours-save-msg" id="hoursSaveMsg"></p>
+        <div class="hours-grid" id="hoursGrid">
+          <!-- Rendered by JS -->
         </div>
-      </div>
-
-      <!-- BOOKINGS LIST -->
-      <div class="admin-bookings" id="adminBookings">
-        <div class="admin-loading">Loading bookings…</div>
       </div>
 
     </main>
   </div>
 
+  <!-- CHANGE PASSWORD MODAL -->
+  <div class="admin-modal-overlay" id="passwordModal">
+    <div class="admin-modal">
+      <button class="admin-modal__close" id="passwordModalClose">✕</button>
+      <h2>Change Password</h2>
+      <p>Enter your current password, then choose a new one.</p>
+      <div class="form-group">
+        <label>Current Password</label>
+        <input type="password" id="currentPassword" placeholder="Current password" />
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" id="newPassword" placeholder="Min. 8 characters" />
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password</label>
+        <input type="password" id="confirmPassword" placeholder="Repeat new password" />
+      </div>
+      <p class="admin-modal__error" id="passwordError"></p>
+      <p class="admin-modal__success" id="passwordSuccess"></p>
+      <button class="btn btn--gold btn--full" id="savePassword">Update Password ↗</button>
+    </div>
+  </div>
+
+  <!-- PWA Install Banner -->
+  <div class="pwa-banner" id="pwaBanner">
+    <div class="pwa-banner__icon">✂</div>
+    <div class="pwa-banner__text">
+      <strong>Add the Admin App to your home screen</strong>
+      <span id="pwaBannerInstructions">Tap the share icon ⎙ then "Add to Home Screen" for quick access</span>
+    </div>
+    <button class="pwa-banner__install" id="pwaInstallBtn" style="display:none">Install</button>
+    <button class="pwa-banner__close" id="pwaBannerClose" aria-label="Dismiss">✕</button>
+  </div>
+
   <script type="module" src="admin.js"></script>
+  <script src="pwa.js" defer></script>
 </body>
 </html>

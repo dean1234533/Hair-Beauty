@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, addDoc, query, where, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, collection, addDoc, query, where, getDocs, getDoc, doc, Timestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ─── FIREBASE CONFIG ─────────────────────────────────────────
 // Replace these values with your Firebase project config
@@ -43,32 +43,63 @@ function dateKey(date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-// Returns time slots based on day of week
-function getSlotsForDay(date) {
-  const day = date.getDay(); // 0=Sun, 6=Sat
-  let start, end;
-  if (day === 0) { start = 10; end = 17; }       // Sun 10am–5pm
-  else if (day === 6) { start = 8; end = 19; }    // Sat 8am–7pm
-  else { start = 9; end = 20; }                   // Mon–Fri 9am–8pm
+const DAY_KEYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+
+const DEFAULT_HOURS = {
+  monday:    { open: true, start: '09:00', end: '20:00' },
+  tuesday:   { open: true, start: '09:00', end: '20:00' },
+  wednesday: { open: true, start: '09:00', end: '20:00' },
+  thursday:  { open: true, start: '09:00', end: '20:00' },
+  friday:    { open: true, start: '09:00', end: '20:00' },
+  saturday:  { open: true, start: '08:00', end: '19:00' },
+  sunday:    { open: true, start: '10:00', end: '17:00' },
+};
+
+async function getSlotsForDay(date) {
+  let hours = DEFAULT_HOURS;
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'hours'));
+    if (snap.exists()) hours = snap.data();
+  } catch (e) { /* use defaults */ }
+
+  const dayKey = DAY_KEYS[date.getDay()];
+  const h = hours[dayKey];
+
+  if (!h || !h.open) return [];
+
+  const [startH, startM] = h.start.split(':').map(Number);
+  const [endH, endM]     = h.end.split(':').map(Number);
+  const startMins = startH * 60 + startM;
+  const endMins   = endH   * 60 + endM;
 
   const slots = [];
-  for (let h = start; h < end; h++) {
-    slots.push(`${String(h).padStart(2, '0')}:00`);
-    slots.push(`${String(h).padStart(2, '0')}:30`);
+  for (let m = startMins; m < endMins; m += 30) {
+    slots.push(`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`);
   }
   return slots;
 }
 
 // ─── STEP 1: SERVICE ─────────────────────────────────────────
 document.querySelectorAll('.booking-service-card').forEach(card => {
-  card.addEventListener('click', () => {
-    document.querySelectorAll('.booking-service-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    booking.service = card.dataset.service;
-    booking.price = card.dataset.price;
-    document.getElementById('step1Next').disabled = false;
-  });
+  card.addEventListener('click', () => selectService(card));
 });
+
+function selectService(card) {
+  document.querySelectorAll('.booking-service-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  booking.service = card.dataset.service;
+  booking.price   = card.dataset.price;
+  document.getElementById('step1Next').disabled = false;
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Pre-select service from URL parameter (e.g. booking.html?service=Cuts+%26+Styling)
+const preselect = new URLSearchParams(location.search).get('service');
+if (preselect) {
+  const match = [...document.querySelectorAll('.booking-service-card')]
+    .find(c => c.dataset.service === preselect);
+  if (match) selectService(match);
+}
 
 document.getElementById('step1Next').addEventListener('click', () => {
   showPanel('step-2');
@@ -172,7 +203,13 @@ async function renderTimeSlots() {
     console.warn('Could not fetch bookings:', e);
   }
 
-  const slots = getSlotsForDay(booking.date);
+  const slots = await getSlotsForDay(booking.date);
+
+  if (slots.length === 0) {
+    container.innerHTML = '<p style="color:var(--text-muted);font-size:14px;padding:20px 0">We are closed on this day. Please choose another date.</p>';
+    return;
+  }
+
   container.innerHTML = '';
 
   slots.forEach(slot => {

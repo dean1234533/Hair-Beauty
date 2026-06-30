@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, onSnapshot, doc, updateDoc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, onSnapshot, doc, updateDoc, orderBy, query, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js';
 
 // ─── CONFIG — same values as booking.js and sw.js ────────────
@@ -61,6 +61,7 @@ let searchTerm = '';
 let isFirstLoad = true;
 
 function initDash() {
+  loadHours();
   const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
 
   onSnapshot(q, snap => {
@@ -244,5 +245,159 @@ notifyBtn.addEventListener('click', async () => {
   } catch (e) {
     // FCM requires HTTPS in production — falls back to in-app only on localhost
     console.warn('FCM token error (normal on localhost):', e.message);
+  }
+});
+
+// ─── TAB SWITCHING ───────────────────────────────────────────
+document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+  });
+});
+
+// ─── BUSINESS HOURS ───────────────────────────────────────────
+const DAYS = [
+  { key: 'monday',    label: 'Monday' },
+  { key: 'tuesday',   label: 'Tuesday' },
+  { key: 'wednesday', label: 'Wednesday' },
+  { key: 'thursday',  label: 'Thursday' },
+  { key: 'friday',    label: 'Friday' },
+  { key: 'saturday',  label: 'Saturday' },
+  { key: 'sunday',    label: 'Sunday' },
+];
+
+const DEFAULT_HOURS = {
+  monday:    { open: true, start: '09:00', end: '20:00' },
+  tuesday:   { open: true, start: '09:00', end: '20:00' },
+  wednesday: { open: true, start: '09:00', end: '20:00' },
+  thursday:  { open: true, start: '09:00', end: '20:00' },
+  friday:    { open: true, start: '09:00', end: '20:00' },
+  saturday:  { open: true, start: '08:00', end: '19:00' },
+  sunday:    { open: true, start: '10:00', end: '17:00' },
+};
+
+let currentHours = { ...DEFAULT_HOURS };
+
+async function loadHours() {
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'hours'));
+    if (snap.exists()) currentHours = snap.data();
+  } catch (e) {
+    console.warn('Could not load hours:', e);
+  }
+  renderHoursGrid();
+}
+
+function renderHoursGrid() {
+  const grid = document.getElementById('hoursGrid');
+  grid.innerHTML = DAYS.map(({ key, label }) => {
+    const h = currentHours[key] || DEFAULT_HOURS[key];
+    return `
+      <div class="hours-row">
+        <span class="hours-day">${label}</span>
+        <label class="hours-toggle">
+          <input type="checkbox" data-day="${key}" class="hours-open-chk" ${h.open ? 'checked' : ''} />
+          <span class="hours-toggle-track"><span class="hours-toggle-thumb"></span></span>
+          <span class="hours-toggle-label">${h.open ? 'Open' : 'Closed'}</span>
+        </label>
+        <div class="hours-times ${h.open ? '' : 'hidden'}" id="times-${key}">
+          <input type="time" class="hours-time" data-day="${key}" data-field="start" value="${h.start}" />
+          <span class="hours-to">to</span>
+          <input type="time" class="hours-time" data-day="${key}" data-field="end" value="${h.end}" />
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Toggle open/closed
+  grid.querySelectorAll('.hours-open-chk').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const times = document.getElementById(`times-${chk.dataset.day}`);
+      const lbl = chk.closest('.hours-toggle').querySelector('.hours-toggle-label');
+      times.classList.toggle('hidden', !chk.checked);
+      lbl.textContent = chk.checked ? 'Open' : 'Closed';
+    });
+  });
+}
+
+document.getElementById('saveHours').addEventListener('click', async () => {
+  const updated = {};
+  DAYS.forEach(({ key }) => {
+    const chk   = document.querySelector(`.hours-open-chk[data-day="${key}"]`);
+    const start = document.querySelector(`.hours-time[data-day="${key}"][data-field="start"]`);
+    const end   = document.querySelector(`.hours-time[data-day="${key}"][data-field="end"]`);
+    updated[key] = {
+      open:  chk.checked,
+      start: start.value,
+      end:   end.value,
+    };
+  });
+
+  const msg = document.getElementById('hoursSaveMsg');
+  try {
+    await setDoc(doc(db, 'settings', 'hours'), updated);
+    currentHours = updated;
+    msg.style.color = '#6fcf97';
+    msg.textContent = '✓ Hours saved successfully.';
+  } catch (e) {
+    msg.style.color = '#e05050';
+    msg.textContent = 'Failed to save. Please try again.';
+  }
+  setTimeout(() => { msg.textContent = ''; }, 3000);
+});
+
+// ─── CHANGE PASSWORD MODAL ────────────────────────────────────
+const passwordModal  = document.getElementById('passwordModal');
+const passwordError  = document.getElementById('passwordError');
+const passwordSuccess = document.getElementById('passwordSuccess');
+
+document.getElementById('changePasswordBtn').addEventListener('click', () => {
+  passwordModal.classList.add('open');
+  passwordError.textContent = '';
+  passwordSuccess.textContent = '';
+  document.getElementById('currentPassword').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmPassword').value = '';
+});
+
+document.getElementById('passwordModalClose').addEventListener('click', closeModal);
+passwordModal.addEventListener('click', e => { if (e.target === passwordModal) closeModal(); });
+function closeModal() { passwordModal.classList.remove('open'); }
+
+document.getElementById('savePassword').addEventListener('click', async () => {
+  const current = document.getElementById('currentPassword').value;
+  const next    = document.getElementById('newPassword').value;
+  const confirm = document.getElementById('confirmPassword').value;
+
+  passwordError.textContent = '';
+  passwordSuccess.textContent = '';
+
+  if (!current || !next || !confirm) {
+    passwordError.textContent = 'Please fill in all fields.'; return;
+  }
+  if (next.length < 8) {
+    passwordError.textContent = 'New password must be at least 8 characters.'; return;
+  }
+  if (next !== confirm) {
+    passwordError.textContent = 'New passwords do not match.'; return;
+  }
+
+  const user = auth.currentUser;
+  const credential = EmailAuthProvider.credential(user.email, current);
+
+  try {
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, next);
+    passwordSuccess.textContent = 'Password updated successfully.';
+    setTimeout(closeModal, 2000);
+  } catch (e) {
+    if (e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
+      passwordError.textContent = 'Current password is incorrect.';
+    } else {
+      passwordError.textContent = 'Something went wrong. Please try again.';
+    }
   }
 });

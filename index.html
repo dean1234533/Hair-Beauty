@@ -85,7 +85,7 @@
           Precision cuts, bold colour, and expert treatments — all under one roof in Stratford.
         </p>
         <div class="hero__actions">
-          <a href="#contact" class="btn btn--gold">Book Appointment ↗</a>
+          <a href="booking.html" class="btn btn--gold">Book Appointment ↗</a>
           <a href="#services" class="btn btn--ghost">Our Services</a>
         </div>
         <div class="hero__scroll-hint">
@@ -147,42 +147,42 @@
           <h3 class="service-card__title">Cuts &amp; Styling</h3>
           <p class="service-card__desc">Precision cuts tailored to your face shape and lifestyle</p>
           <span class="service-card__price">From £25</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Cuts+%26+Styling" class="service-card__link">Book Appointment →</a>
         </div>
         <div class="service-card">
           <span class="service-card__num">02</span>
           <h3 class="service-card__title">Colour &amp; Highlights</h3>
           <p class="service-card__desc">Balayage, ombré, full colour and creative highlights</p>
           <span class="service-card__price">From £75</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Colour+%26+Highlights" class="service-card__link">Book Appointment →</a>
         </div>
         <div class="service-card">
           <span class="service-card__num">03</span>
           <h3 class="service-card__title">Keratin Treatments</h3>
           <p class="service-card__desc">Smooth, frizz-free results that last up to six months</p>
           <span class="service-card__price">From £100</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Keratin+Treatment" class="service-card__link">Book Appointment →</a>
         </div>
         <div class="service-card">
           <span class="service-card__num">04</span>
           <h3 class="service-card__title">Blow Dry &amp; Finish</h3>
           <p class="service-card__desc">Salon-quality blowout for every occasion</p>
           <span class="service-card__price">From £35</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Blow+Dry+%26+Finish" class="service-card__link">Book Appointment →</a>
         </div>
         <div class="service-card">
           <span class="service-card__num">05</span>
           <h3 class="service-card__title">Bridal Packages</h3>
           <p class="service-card__desc">Bespoke hair and beauty packages for your perfect day</p>
           <span class="service-card__price">From £200</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Bridal+Package" class="service-card__link">Book Appointment →</a>
         </div>
         <div class="service-card">
           <span class="service-card__num">06</span>
           <h3 class="service-card__title">Eyebrow Threading</h3>
           <p class="service-card__desc">Defined, clean brows using traditional threading techniques</p>
           <span class="service-card__price">From £10</span>
-          <a href="#contact" class="service-card__link">Book Appointment →</a>
+          <a href="booking.html?service=Eyebrow+Threading" class="service-card__link">Book Appointment →</a>
         </div>
       </div>
       <div class="services__slider-nav">
@@ -193,7 +193,7 @@
       <p class="services__note">Full price list available at the salon — all consultations are free.</p>
       <div class="services__footer">
         <a href="services.html" class="btn btn--ghost services__view-all">View All Services →</a>
-        <a href="#contact" class="btn btn--gold">Book a Service ↗</a>
+        <a href="booking.html" class="btn btn--gold">Book a Service ↗</a>
       </div>
     </div>
   </section>
@@ -246,7 +246,7 @@
         <li>✦ Free colour consultations</li>
         <li>✦ No hidden charges, ever</li>
       </ul>
-      <a href="#contact" class="btn btn--gold">Book a Consultation ↗</a>
+      <a href="booking.html" class="btn btn--gold">Book a Consultation ↗</a>
     </div>
   </section>
 
@@ -325,9 +325,10 @@
     <div class="container">
       <div class="contact__grid">
         <div class="contact__left">
-          <p class="label">Get in Touch</p>
-          <h2 class="contact__headline">Ready for Your<br /><em>Transformation?</em></h2>
-          <p class="contact__body">Send us an enquiry and we will be back in touch within a few hours to confirm your appointment. Or just call — we love to chat.</p>
+          <p class="label">Got a Question?</p>
+          <h2 class="contact__headline">We're Here to<br /><em>Help</em></h2>
+          <p class="contact__body">Not sure what service you need, or want to ask about a bridal package? Send us a message and we'll get back to you within a few hours. Ready to book? Use our booking system below.</p>
+          <a href="booking.html" class="btn btn--gold" style="margin-bottom:32px">Book an Appointment ↗</a>
           <div class="contact__details">
             <div class="contact__detail">
               <span class="contact__icon">📍</span>
@@ -376,23 +377,24 @@
               <input type="email" id="email" name="email" placeholder="you@example.com" required />
             </div>
             <div class="form-group">
-              <label for="service">Service Interested In</label>
+              <label for="service">Topic <span style="color:var(--text-muted);font-weight:300">(optional)</span></label>
               <select id="service" name="service">
-                <option value="">Select a service…</option>
+                <option value="">Select a topic…</option>
                 <option>Cuts &amp; Styling</option>
                 <option>Colour &amp; Highlights</option>
                 <option>Keratin Treatment</option>
                 <option>Blow Dry &amp; Finish</option>
                 <option>Bridal Package</option>
                 <option>Eyebrow Threading</option>
+                <option>Pricing</option>
                 <option>Other / Not Sure</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="message">Message (optional)</label>
-              <textarea id="message" name="message" rows="3" placeholder="Any additional details…"></textarea>
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="What would you like to know?" required></textarea>
             </div>
-            <button type="submit" class="btn btn--gold btn--full">Send Enquiry ↗</button>
+            <button type="submit" class="btn btn--gold btn--full">Send Message ↗</button>
           </form>
         </div>
       </div>
@@ -417,10 +419,10 @@
         </div>
         <div class="footer__links">
           <p class="footer__links-heading">Services</p>
-          <a href="#contact">Cuts &amp; Styling</a>
-          <a href="#contact">Colour &amp; Highlights</a>
-          <a href="#contact">Keratin Treatments</a>
-          <a href="#contact">Bridal Packages</a>
+          <a href="booking.html">Cuts &amp; Styling</a>
+          <a href="booking.html">Colour &amp; Highlights</a>
+          <a href="booking.html">Keratin Treatments</a>
+          <a href="booking.html">Bridal Packages</a>
         </div>
         <div class="footer__social">
           <p class="footer__links-heading">Follow Us</p>
