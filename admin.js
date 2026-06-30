@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, onSnapshot, doc, updateDoc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js';
 
 // ─── CONFIG — same values as booking.js and sw.js ────────────
@@ -13,49 +14,45 @@ const firebaseConfig = {
   measurementId: "G-01B9QBJCRB"
 };
 
-// Replace with your VAPID key from Firebase Console →
-// Project Settings → Cloud Messaging → Web Push certificates
 const VAPID_KEY = "clLmWL5UQewpPZFh-ttdWjIrWLUts3MtQ9bxZog50jI";
 
-// Set your admin password here
-const ADMIN_PASSWORD = "dacutsadmin2026";
-
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db  = getFirestore(app);
+const auth = getAuth(app);
 
-// ─── PASSWORD GATE ────────────────────────────────────────────
+// ─── AUTH GATE ────────────────────────────────────────────────
 const gate = document.getElementById('adminGate');
 const dash = document.getElementById('adminDash');
 
-if (sessionStorage.getItem('adminAuthed') === '1') {
-  showDash();
-}
+onAuthStateChanged(auth, user => {
+  if (user) {
+    gate.style.display = 'none';
+    dash.style.display = 'block';
+    initDash();
+  } else {
+    gate.style.display = 'flex';
+    dash.style.display = 'none';
+  }
+});
 
 document.getElementById('adminLogin').addEventListener('click', login);
 document.getElementById('adminPassword').addEventListener('keydown', e => {
   if (e.key === 'Enter') login();
 });
 
-function login() {
-  const val = document.getElementById('adminPassword').value;
-  if (val === ADMIN_PASSWORD) {
-    sessionStorage.setItem('adminAuthed', '1');
-    showDash();
-  } else {
-    document.getElementById('adminError').textContent = 'Incorrect password.';
+async function login() {
+  const email    = document.getElementById('adminEmail').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  const errEl    = document.getElementById('adminError');
+  errEl.textContent = '';
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    errEl.textContent = 'Incorrect email or password.';
   }
 }
 
-function showDash() {
-  gate.style.display = 'none';
-  dash.style.display = 'block';
-  initDash();
-}
-
-document.getElementById('adminLogout').addEventListener('click', () => {
-  sessionStorage.removeItem('adminAuthed');
-  location.reload();
-});
+document.getElementById('adminLogout').addEventListener('click', () => signOut(auth));
 
 // ─── DASHBOARD ────────────────────────────────────────────────
 let allBookings = [];

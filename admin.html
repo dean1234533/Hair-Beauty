@@ -17,16 +17,19 @@
 </head>
 <body class="admin-body">
 
-  <!-- PASSWORD GATE -->
+  <!-- LOGIN GATE -->
   <div class="admin-gate" id="adminGate">
     <div class="admin-gate__box">
       <span class="admin-gate__logo">Da <em>Cuts</em></span>
       <h1>Admin Access</h1>
-      <p>Enter your admin password to continue</p>
+      <p>Sign in with your admin email and password</p>
+      <div class="form-group" style="width:100%">
+        <input type="email" id="adminEmail" placeholder="Email" autocomplete="email" />
+      </div>
       <div class="form-group" style="width:100%">
         <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password" />
       </div>
-      <button class="btn btn--gold btn--full" id="adminLogin">Enter ↗</button>
+      <button class="btn btn--gold btn--full" id="adminLogin">Sign In ↗</button>
       <p class="admin-gate__error" id="adminError"></p>
     </div>
   </div>
