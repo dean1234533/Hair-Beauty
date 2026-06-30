@@ -1,0 +1,15 @@
+{
+  "name": "Da Cuts – Admin",
+  "short_name": "Da Cuts Admin",
+  "description": "Admin dashboard for Da Cuts Hair & Beauty bookings",
+  "start_url": "./admin.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#C9A96E",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

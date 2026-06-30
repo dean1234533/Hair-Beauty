@@ -280,6 +280,12 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+
+    // Ensure hours grid is populated whenever the hours tab is opened
+    if (tab.dataset.tab === 'hours') {
+      const grid = document.getElementById('hoursGrid');
+      if (!grid.innerHTML.trim()) renderHoursGrid();
+    }
   });
 });
 
@@ -307,13 +313,22 @@ const DEFAULT_HOURS = {
 let currentHours = { ...DEFAULT_HOURS };
 
 async function loadHours() {
-  try {
-    const snap = await getDoc(doc(db, 'settings', 'hours'));
-    if (snap.exists()) currentHours = snap.data();
-  } catch (e) {
-    console.warn('Could not load hours:', e);
-  }
+  // Render defaults immediately so the grid is never blank
   renderHoursGrid();
+
+  try {
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), 5000)
+    );
+    const snap = await Promise.race([getDoc(doc(db, 'settings', 'hours')), timeout]);
+    if (snap.exists()) {
+      currentHours = snap.data();
+      renderHoursGrid(); // Re-render with saved data
+    }
+  } catch (e) {
+    console.warn('Could not load hours from Firestore:', e.message);
+    // Grid already showing defaults — nothing more to do
+  }
 }
 
 function renderHoursGrid() {
@@ -361,17 +376,28 @@ document.getElementById('saveHours').addEventListener('click', async () => {
     };
   });
 
+  const btn = document.getElementById('saveHours');
   const msg = document.getElementById('hoursSaveMsg');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+  msg.textContent = '';
+
   try {
     await setDoc(doc(db, 'settings', 'hours'), updated);
     currentHours = updated;
     msg.style.color = '#6fcf97';
     msg.textContent = '✓ Hours saved successfully.';
+    btn.textContent = 'Save Hours ↗';
+    btn.disabled = false;
+    setTimeout(() => { msg.textContent = ''; }, 4000);
   } catch (e) {
     msg.style.color = '#e05050';
-    msg.textContent = 'Failed to save. Please try again.';
+    msg.textContent = 'Failed to save — ' + (e.code === 'permission-denied'
+      ? 'Firestore rules not updated. Go to Firebase Console → Firestore → Rules and publish the rules.'
+      : e.message || 'check your connection and try again.');
+    btn.textContent = 'Save Hours ↗';
+    btn.disabled = false;
   }
-  setTimeout(() => { msg.textContent = ''; }, 3000);
 });
 
 // ─── CHANGE PASSWORD MODAL ────────────────────────────────────
